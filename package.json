@@ -1,0 +1,30 @@
+{
+  "name": "EV1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .dist/index",
+    "build": "babel src -d .dist",
+    "dev": "babel-node src"
+  },
+  "repository": "https://github.com/neirowork/EV1.git",
+  "author": "Tomotada Saigusa <nirot1r@g-second.net>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.7.4",
+    "@babel/node": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "prettier": "^1.19.1"
+  }
+}
