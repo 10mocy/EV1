@@ -18,8 +18,8 @@ export default class NIED extends EventEmitter {
   }
 
   async _kmoni() {
-    const dt = new Date('2019/12/04 19:35:30')
-    // const dt = new Date()
+    // const dt = new Date('2019/12/04 19:35:30')
+    const dt = new Date()
 
     dt.setSeconds(dt.getSeconds() - 2)
     const timestamp = dt.toFormat('YYYYMMDDHH24MISS')
