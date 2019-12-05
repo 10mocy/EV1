@@ -70,7 +70,7 @@ nied.on('data', data => {
       },
       footer: {
         text: 'NeiRo.WORK Earthquake Viewer 1'
-        // icon_url:
+        // icon_url: ''
       }
     }
   })
@@ -111,7 +111,7 @@ nhk.on('data', data => {
       },
       footer: {
         text: 'NeiRo.WORK Earthquake Viewer 1'
-        // icon_url:
+        // icon_url: ''
       }
     }
   })
