@@ -7,9 +7,9 @@ export default class NIED extends EventEmitter {
   constructor(interval = 2000) {
     super()
 
-    this.existEID = {}
-
     this.interval = interval
+
+    this.existEID = {}
   }
 
   start() {
