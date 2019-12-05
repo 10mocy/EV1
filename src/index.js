@@ -99,7 +99,7 @@ nhk.on('data', data => {
         { name: '最大震度', value: data.intensity, inline:true },
         {
           name: `最大震度${data.intensity}を観測した地点`,
-          value: data.relative[0].area.map(i => `・${i}`).join('\n'),
+          value: data.relative[0].area.join(' / '),
           inline: true
         }
       ],
