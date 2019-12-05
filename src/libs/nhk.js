@@ -10,9 +10,10 @@ export default class NHK extends EventEmitter {
   constructor(interval = 2000) {
     super()
 
-    this.existNHKEID = []
-
     this.interval = interval
+
+    this.startupDate = new Date()
+    this.existNHKEID = []
   }
 
   start() {
@@ -40,10 +41,14 @@ export default class NHK extends EventEmitter {
     const latestData = await xml2js.parseStringPromise(latestXML)
 
     const latestAttribute = latestData.Root.Earthquake[0].$
-
+    
     // 詳細情報発表前は処理をスキップ
     // (震度情報が空文字列になっていることを利用している)
     if (latestAttribute.Epicenter === '') return
+    
+    // 起動前の情報をスキップ
+    const latestDate = new Date(latestAttribute.Time)
+    if (this.startupDate > latestDate) return
 
     // 処理済みチェック
     if (this.existNHKEID.find(i => i === latestAttribute.Id)) return
