@@ -41,13 +41,13 @@ export default class NHK extends EventEmitter {
     const latestData = await xml2js.parseStringPromise(latestXML)
 
     const latestAttribute = latestData.Root.Earthquake[0].$
-    
+
     // 詳細情報発表前は処理をスキップ
     // (震度情報が空文字列になっていることを利用している)
     if (latestAttribute.Epicenter === '') return
-    
+
     // 起動前の情報をスキップ
-    const latestDate = new Date(latestAttribute.Time)
+    const latestDate = new Date(latestData.Root.Timestamp[0])
     if (this.startupDate > latestDate) return
 
     // 処理済みチェック
