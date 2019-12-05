@@ -32,7 +32,7 @@ nied.on('ready', () => console.log('✔ NIEDクライアントの準備が整い
 nhk.on('ready', () => console.log('✔ NHKクライアントの準備が整いました！'))
 
 nied.on('data', data => {
-  console.log(`<i> NIED地震速報が届きました ${data.report_id}-${report_num}`)
+  console.log(`<i> NIED地震速報が届きました ${data.report_id}-${data.report_num}`)
   client.channels.get('651780233711583233').send({
     embed: {
       title: `地震速報(高度利用) 第${data.report_num}報${
