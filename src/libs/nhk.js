@@ -45,6 +45,7 @@ export default class NHK extends EventEmitter {
     this.existNHKEID.push(latestAttribute.Id)
 
     const data = {
+      id: latestAttribute.Id,
       timestamp: latestAttribute.Time,
       intensity: latestAttribute.Intensity,
       epicenter: latestAttribute.Epicenter,
