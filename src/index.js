@@ -5,6 +5,8 @@ import Discord from 'discord.js'
 
 import dateH from './libs/date'
 
+import pkg from './../package.json'
+
 require('date-utils')
 require('dotenv').config()
 
@@ -25,9 +27,11 @@ const intensityColor = {
   '7': 'd166ca'
 }
 
-client.on('ready', () =>
+client.on('ready', () => {
   console.log('✔ Discordクライアントの準備が整いました！')
-)
+  client.user.setActivity(`EV1 v${pkg.version}`, {url: 'https://github.com/neirowork/EV1', type: 'PLAYING'})
+})
+
 nied.on('ready', () => console.log('✔ NIEDクライアントの準備が整いました！'))
 nhk.on('ready', () => console.log('✔ NHKクライアントの準備が整いました！'))
 
