@@ -21,28 +21,40 @@ export default class NHK extends EventEmitter {
   }
 
   async _nhk() {
-    const reportURL = 'https://www3.nhk.or.jp/sokuho/jishin/data/JishinReport.xml'
-    const reportReq = await axios.get(reportURL, { responseType: 'arraybuffer'})
+    const reportURL =
+      'https://www3.nhk.or.jp/sokuho/jishin/data/JishinReport.xml'
+    const reportReq = await axios.get(reportURL, {
+      responseType: 'arraybuffer'
+    })
     const reportXML = iconv.decode(Buffer.from(reportReq.data), 'shiftjis')
     const reportData = await xml2js.parseStringPromise(reportXML)
     const latestReportURL = reportData.jishinReport.record[0].item[0].$.url
 
-    const latestReportReq = await axios.get(latestReportURL, { responseType: 'arraybuffer'})
-    const latestXML = iconv.decode(Buffer.from(latestReportReq.data), 'shiftjis')
+    const latestReportReq = await axios.get(latestReportURL, {
+      responseType: 'arraybuffer'
+    })
+    const latestXML = iconv.decode(
+      Buffer.from(latestReportReq.data),
+      'shiftjis'
+    )
     const latestData = await xml2js.parseStringPromise(latestXML)
-    
+
+    const latestAttribute = latestData.Root.Earthquake[0].$
+
+    // 詳細情報発表前は処理をスキップ
+    // (震度情報が空文字列になっていることを利用している)
+    if (latestAttribute.Epicenter === '') return
+
+    // 処理済みチェック
+    if (this.existNHKEID.find(i => i === latestAttribute.Id)) return
+    this.existNHKEID.push(latestAttribute.Id)
+
     // 観測地点を配列化
     const latestGroup = latestData.Root.Earthquake[0].Relative[0].Group
     const relative = latestGroup.map(i => ({
       intensity: i.$.Intensity,
       area: i.Area.map(j => j.$.Name)
     }))
-
-    const latestAttribute = latestData.Root.Earthquake[0].$
-
-    // 処理済みチェック
-    if(this.existNHKEID.find(i => i === latestAttribute.Id)) return
-    this.existNHKEID.push(latestAttribute.Id)
 
     const data = {
       id: latestAttribute.Id,
