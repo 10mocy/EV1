@@ -37,13 +37,18 @@ html, body {
 }
 
 #sub {
-  width: 30%
+  width: 30%;
 }
 
 @media screen and (max-width: 750px) {
   #main, #sub {
     width: 100%;
   }
+}
+
+.small {
+  font-size: 0.6em;
+  color: #dddddd;
 }
 
 .logTable {

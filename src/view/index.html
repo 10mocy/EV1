@@ -19,7 +19,7 @@
           </tr>
           <tr class="niedTable_row">
             <th class="niedTable_heading">情報番号</th>
-            <td class="niedTable_data">第{{ niedData[0].report_num }}報</td>
+            <td class="niedTable_data">第{{ niedData[0].report_num }}報<span v-if="niedData[0].is_final" class="small">&nbsp;最終報</span></td>
           </tr>
           <tr class="niedTable_row">
             <th class="niedTable_heading">震央</th>
@@ -69,17 +69,7 @@
       const app = new Vue({
         el: '#app',
         data: {
-            niedData: [
-              {
-                report_time: '2019/12/07 00:35:35',
-                report_id: '20191207003535',
-                report_num: '2',
-                region_name: '栃木県北部',
-                calcintensity: '5弱',
-                depth: 'ごく浅い',
-                magunitude: '5.1'
-              }
-            ]
+            niedData: []
           },
           mounted() {
             socket.on('nied', data => {
