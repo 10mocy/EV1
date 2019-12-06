@@ -10,45 +10,53 @@
   <body>
     <div class="mainWrap" id="app">
 
-      <div class="mainWrap_column dataWrap">
+      <div id="main">
 
-        <div class="dataWrap_row">
-          <div class="niedData">aaa</div>
-        </div>
+        <table v-if="niedData" class="niedTable">
+          <tr class="niedTable_row">
+            <th class="niedTable_heading">地震ID</th>
+            <td class="niedTable_data">{{ niedData[0].report_id }}</td>
+          </tr>
+          <tr class="niedTable_row">
+            <th class="niedTable_heading">情報番号</th>
+            <td class="niedTable_data">第{{ niedData[0].report_num }}報</td>
+          </tr>
+          <tr class="niedTable_row">
+            <th class="niedTable_heading">震央</th>
+            <td class="niedTable_data">{{ niedData[0].region_name }}</td>
+          </tr>
+          <tr class="niedTable_row">
+            <th class="niedTable_heading">最大震度</th>
+            <td class="niedTable_data">{{ niedData[0].calcintensity }}</td>
+          </tr>
+          <tr class="niedTable_row">
+            <th class="niedTable_heading">深さ</th>
+            <td class="niedTable_data">{{ niedData[0].depth}}</td>
+          </tr>
+          <tr class="niedTable_row">
+            <th class="niedTable_heading">規模</th>
+            <td class="niedTable_data">M{{ niedData[0].magunitude }}</td>
+          </tr>
+        </table>
         
-        <div class="dataWrap_row">
-          <table class="logTable">
-            <thead>
-              <tr>
-                <th class="logTable_heading">発表時刻</th>
-                <th class="logTable_heading">地震ID</th>
-                <th class="logTable_heading">情報番号</th>
-                <th class="logTable_heading">震央</th>
-                <th class="logTable_heading">深さ</th>
-                <th class="logTable_heading">最大震度</th>
-                <th class="logTable_heading">マグニチュード</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="data in niedData" v-if="niedData" class="logTable_row">
-                <td class="logTable_data">{{ data.report_time }}</td>
-                <td class="logTable_data">{{ data.report_id }}</td>
-                <td class="logTable_data">{{ data.report_num }}</td>
-                <td class="logTable_data">{{ data.region_name }}</td>
-                <td class="logTable_data">{{ data.depth }}</td>
-                <td class="logTable_data">{{ data.calcintensity }}</td>
-                <td class="logTable_data">M{{ data.magunitude }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <table class="logTable">
+          <thead>
+            <tr>
+              <th class="logTable_heading">発表時刻</th>
+              <th class="logTable_heading">情報番号</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="data in niedData" v-if="niedData" class="logTable_row">
+              <td class="logTable_data">{{ data.report_time }}</td>
+              <td class="logTable_data">{{ data.report_id }} - {{ data.report_num }}</td>
+            </tr>
+          </tbody>
+        </table>
 
       </div>
 
-      <div class="mainWrap_column dataWrap">
-
-        <div class="dataWrap_row">NHK地震情報</div>
-        <div class="dataWrap_row">履歴</div>
+      <div id="sub">
 
       </div>
 
@@ -61,11 +69,20 @@
       const app = new Vue({
         el: '#app',
         data: {
-            niedData: []
+            niedData: [
+              {
+                report_time: '2019/12/07 00:35:35',
+                report_id: '20191207003535',
+                report_num: '2',
+                region_name: '栃木県北部',
+                calcintensity: '5弱',
+                depth: 'ごく浅い',
+                magunitude: '5.1'
+              }
+            ]
           },
           mounted() {
             socket.on('nied', data => {
-              console.log(data)
               this.niedData.unshift(data)
             })
           }

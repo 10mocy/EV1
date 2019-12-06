@@ -2,6 +2,12 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
+  -ms-overflow-style: none;    /* IE, Edge 対応 */
+  scrollbar-width: none;       /* Firefox 対応 */
+}
+*::-webkit-scrollbar {
+  display: none;
 }
 
 html, body {
@@ -18,17 +24,34 @@ html, body {
   font-size: 0;
 }
 
-.mainWrap_column {
+#main, #sub {
   display: inline-block;
   vertical-align: top;
 
-  width: calc(100% / 2);
+  padding: 10px;
   font-size: 1rem;
+}
+
+#main {
+  width: 70%;
+}
+
+#sub {
+  width: 30%
+}
+
+@media screen and (max-width: 750px) {
+  #main, #sub {
+    width: 100%;
+  }
 }
 
 .logTable {
   width: 100%;
   border-collapse: collapse;
+
+  word-break: break-all;
+  word-wrap: break-all;
 
   text-align: center;
 }
@@ -42,3 +65,31 @@ html, body {
 .logTable_data {
   padding: 5px 10px;
 }
+
+.niedTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+.niedTable_heading,
+.niedTable_data {
+  padding: 8px 10px;
+}
+.niedTable_heading {
+  border-left: 10px solid #ff8800;
+  font-weight: normal;
+  text-align: right;
+}
+  .niedTable_row:nth-child(2n) .niedTable_heading {
+    border-left: 10px solid #ff6600;
+    background-color: #383838;
+  }
+.niedTable_data {
+  border-right: 10px solid #ff8800;
+  font-weight: bold;
+  font-size: 2em;
+  color: #ffffff;
+}
+  .niedTable_row:nth-child(2n) .niedTable_data {
+    border-right: 10px solid #ff6600;
+    background-color: #383838;
+  }
