@@ -29,14 +29,19 @@ const intensityColor = {
 
 client.on('ready', () => {
   console.log('✔ Discordクライアントの準備が整いました！')
-  client.user.setActivity(`EV1 v${pkg.version}`, {url: 'https://github.com/neirowork/EV1', type: 'PLAYING'})
+  client.user.setActivity(`EV1 v${pkg.version}`, {
+    url: 'https://github.com/neirowork/EV1',
+    type: 'PLAYING'
+  })
 })
 
 nied.on('ready', () => console.log('✔ NIEDクライアントの準備が整いました！'))
 nhk.on('ready', () => console.log('✔ NHKクライアントの準備が整いました！'))
 
 nied.on('data', data => {
-  console.log(`<i> NIED地震速報が届きました ${data.report_id}-${data.report_num}`)
+  console.log(
+    `<i> NIED地震速報が届きました ${data.report_id}-${data.report_num}`
+  )
   client.channels.get('651780233711583233').send({
     embed: {
       title: `地震速報(高度利用) 第${data.report_num}報${
@@ -100,7 +105,7 @@ nhk.on('data', data => {
         { name: '震央', value: data.epicenter, inline: true },
         { name: '深さ', value: data.depth, inline: true },
         { name: 'マグニチュード', value: `M${data.magnitude}`, inline: true },
-        { name: '最大震度', value: data.intensity, inline:true },
+        { name: '最大震度', value: data.intensity, inline: true },
         {
           name: `最大震度${data.intensity}を観測した地点`,
           value: data.relative[0].area.join(' / '),
