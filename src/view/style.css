@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+
+  background-color: #333333;
+  color: #cfcfcf;
+  font-size: 16px;
+}
+
+.mainWrap {
+  /* width: 100%; */
+
+  font-size: 0;
+}
+
+.mainWrap_column {
+  display: inline-block;
+  vertical-align: top;
+
+  width: calc(100% / 2);
+  font-size: 1rem;
+}
+
+.logTable {
+  width: 100%;
+  border-collapse: collapse;
+
+  text-align: center;
+}
+.logTable_row:nth-child(2n) {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+.logTable_heading {
+  padding: 10px;
+  border-bottom: 2px solid #555555;
+}
+.logTable_data {
+  padding: 5px 10px;
+}
