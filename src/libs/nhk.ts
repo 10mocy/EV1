@@ -2,9 +2,7 @@ import axios from 'axios';
 import iconv from 'iconv-lite';
 import xml2js from 'xml2js';
 
-require('date-utils');
-
-const EventEmitter = require('events').EventEmitter;
+import { EventEmitter } from 'events';
 
 interface Point {
   intencity: string;
@@ -22,6 +20,11 @@ export interface Report {
 }
 
 export class NHK extends EventEmitter {
+  private interval: number;
+  private startupDate: Date;
+
+  private existNHKEID: string[];
+
   constructor(interval = 2000) {
     super();
 
@@ -36,7 +39,7 @@ export class NHK extends EventEmitter {
     this.emit('ready');
   }
 
-  async _nhk(): Promise<undefined> {
+  private async _nhk(): Promise<undefined> {
     const reportURL =
       'https://www3.nhk.or.jp/sokuho/jishin/data/JishinReport.xml';
     const reportReq = await axios.get(reportURL, {

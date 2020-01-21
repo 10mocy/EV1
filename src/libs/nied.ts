@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import moment from 'moment';
 
-const EventEmitter = require('events').EventEmitter;
+import { EventEmitter } from 'events';
 
 interface Result {
   status: string;
@@ -37,6 +37,9 @@ export interface Earthquake {
 }
 
 export class NIED extends EventEmitter {
+  private interval: number;
+  private existEID: { [key: string]: string[] };
+
   constructor(interval = 2000) {
     super();
 
@@ -50,7 +53,7 @@ export class NIED extends EventEmitter {
     this.emit('ready');
   }
 
-  async _kmoni(): Promise<undefined> {
+  private async _kmoni(): Promise<undefined> {
     // const dt = moment(new Date('2019/12/04 19:35:30'));
     const dt = moment();
     dt.add(-2, 'seconds');

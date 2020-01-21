@@ -120,7 +120,7 @@ class EV1 {
           author: {
             name: '情報元 : NIED 防災科学技術研究所',
             url: 'http://www.kmoni.bosai.go.jp/',
-            icon_url:
+            iconUrl:
               'https://github.com/neirowork/EV1/blob/develop/assets/nied.png?raw=true'
           },
           footer: {
@@ -168,7 +168,7 @@ class EV1 {
           author: {
             name: '情報元 : NHK あなたの天気・防災｜地震情報',
             url: 'https://www.nhk.or.jp/kishou-saigai/earthquake/',
-            icon_url:
+            iconUrl:
               'https://github.com/neirowork/EV1/blob/develop/assets/nhk.jpg?raw=true'
           },
           footer: {
