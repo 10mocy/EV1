@@ -4,7 +4,8 @@
 ## インストール
 ```bash
 $ git clone https://github.com/neirowork/EV1
-$ echo -e 'DISCORD_TOKEN="DISCORD BOT TOKEN HERE!"\nDISCORD_NOTIFY_CHANNEL="CHANNEL ID HERE!"' > .env 
+$ echo -e 'DISCORD_TOKEN="DISCORD BOT TOKEN HERE!"\nDISCORD_NOTIFY_CHANNEL="CHANNEL ID HERE!"' > .env
+$ yarn install
 $ yarn build
 $ yarn start
 ```

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>EV1</title>
+  </head>
+  <body>
+    <div class="mainWrap" id="app">
+
+      <div id="main">
+
+        <table v-if="niedData" class="niedTable">
+          <tr class="niedTable_row">
+            <th class="niedTable_heading">地震ID</th>
+            <td class="niedTable_data">{{ niedData[0].report_id }}</td>
+          </tr>
+          <tr class="niedTable_row">
+            <th class="niedTable_heading">情報番号</th>
+            <td class="niedTable_data">第{{ niedData[0].report_num }}報<span v-if="niedData[0].is_final" class="small">&nbsp;最終報</span></td>
+          </tr>
+          <tr class="niedTable_row">
+            <th class="niedTable_heading">震央</th>
+            <td class="niedTable_data">{{ niedData[0].region_name }}</td>
+          </tr>
+          <tr class="niedTable_row">
+            <th class="niedTable_heading">最大震度</th>
+            <td class="niedTable_data">{{ niedData[0].calcintensity }}</td>
+          </tr>
+          <tr class="niedTable_row">
+            <th class="niedTable_heading">深さ</th>
+            <td class="niedTable_data">{{ niedData[0].depth}}</td>
+          </tr>
+          <tr class="niedTable_row">
+            <th class="niedTable_heading">規模</th>
+            <td class="niedTable_data">M{{ niedData[0].magunitude }}</td>
+          </tr>
+        </table>
+        
+        <table class="logTable">
+          <thead>
+            <tr>
+              <th class="logTable_heading">発表時刻</th>
+              <th class="logTable_heading">情報番号</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="data in niedData" v-if="niedData" class="logTable_row">
+              <td class="logTable_data">{{ data.report_time }}</td>
+              <td class="logTable_data">{{ data.report_id }} - {{ data.report_num }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <div id="sub">
+
+      </div>
+
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+    <script>
+      const socket = io()
+      const app = new Vue({
+        el: '#app',
+        data: {
+            niedData: []
+          },
+          mounted() {
+            socket.on('nied', data => {
+              this.niedData.unshift(data)
+            })
+          }
+      })
+    </script>
+  </body>
+</html>
