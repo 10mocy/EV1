@@ -1,6 +1,6 @@
 {
   "name": "EV1",
-  "version": "1.0.0",
+  "version": "1.10",
   "main": "index.js",
   "scripts": {
     "tsc-init": "tsc --init",
@@ -24,6 +24,7 @@
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
     "iconv-lite": "^0.5.0",
+    "moment": "^2.24.0",
     "typescript": "^3.7.5",
     "xml2js": "^0.4.22"
   },

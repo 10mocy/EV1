@@ -7,11 +7,21 @@ require('date-utils');
 const EventEmitter = require('events').EventEmitter;
 
 interface Point {
-  $: { Intensity: string };
-  Area: { $: { Name: string } }[];
+  intencity: string;
+  area: string[];
 }
 
-export default class NHK extends EventEmitter {
+export interface Report {
+  id: string;
+  timestamp: string;
+  intensity: string;
+  epicenter: string;
+  depth: string;
+  magnitude: string;
+  relative: Point[];
+}
+
+export class NHK extends EventEmitter {
   constructor(interval = 2000) {
     super();
 
@@ -62,10 +72,12 @@ export default class NHK extends EventEmitter {
     // 観測地点を配列化
     const latestGroup = latestData.Root.Earthquake[0].Relative[0].Group;
 
-    const relative = latestGroup.map((i: Point) => ({
-      intensity: i.$.Intensity,
-      area: i.Area.map(j => j.$.Name)
-    }));
+    const relative = latestGroup.map(
+      (i: { $: { Intensity: string }; Area: { $: { Name: string } }[] }) => ({
+        intensity: i.$.Intensity,
+        area: i.Area.map(j => j.$.Name)
+      })
+    );
 
     const data = {
       id: latestAttribute.Id,

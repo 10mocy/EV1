@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { deflate } from 'zlib';
-require('date-utils');
+import moment from 'moment';
 
 const EventEmitter = require('events').EventEmitter;
 
@@ -37,7 +36,7 @@ export interface Earthquake {
   alertflg: string;
 }
 
-export default class NIED extends EventEmitter {
+export class NIED extends EventEmitter {
   constructor(interval = 2000) {
     super();
 
@@ -52,11 +51,10 @@ export default class NIED extends EventEmitter {
   }
 
   async _kmoni(): Promise<undefined> {
-    // const dt = new Date('2019/12/04 19:35:30')
-    const dt = new Date();
-
-    dt.setSeconds(dt.getSeconds() - 2);
-    const timestamp = dt.toFormat('YYYYMMDDHH24MISS');
+    // const dt = moment(new Date('2019/12/04 19:35:30'));
+    const dt = moment();
+    dt.add(-2, 'seconds');
+    const timestamp = dt.format('YYYYMMDDHHmmss');
 
     const url = `http://www.kmoni.bosai.go.jp/webservice/hypo/eew/${timestamp}.json`;
     const req: AxiosResponse = await axios.get(url);
