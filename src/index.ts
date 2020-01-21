@@ -7,24 +7,24 @@ import dateHelper from './libs/date';
 
 require('dotenv').config();
 
-const intensityColor: { [key: string]: string } = {
-  不明: '222222',
-  '1': '6ee2eb',
-  '2': '6eeb74',
-  '3': 'f7ef52',
-  '4': 'f58545',
-  '5弱': 'f75252',
-  '5強': 'ff1717',
-  '6弱': 'ff9eb8',
-  '6強': 'd6426a',
-  '7': 'd166ca'
-};
-
 class EV1 {
   private token: string;
   private bot: Discord.Client;
   private nied: NIED;
   private nhk: NHK;
+
+  private intensityColor: { [key: string]: string } = {
+    不明: '222222',
+    '1': '6ee2eb',
+    '2': '6eeb74',
+    '3': 'f7ef52',
+    '4': 'f58545',
+    '5弱': 'f75252',
+    '5強': 'ff1717',
+    '6弱': 'ff9eb8',
+    '6強': 'd6426a',
+    '7': 'd166ca'
+  };
 
   constructor(token: string | undefined) {
     if (!token) {
@@ -90,7 +90,7 @@ class EV1 {
             data.is_final ? ' (最終報)' : ''
           }`,
           color: parseInt(
-            `0x${intensityColor[data.calcintensity] || '888888'}`,
+            `0x${this.intensityColor[data.calcintensity] || '888888'}`,
             16
           ),
           thumbnail: {
@@ -180,7 +180,19 @@ class EV1 {
     });
   }
 
-  private sendMessage(ch: Discord.Channel | undefined, content: any): void {
+  private sendMessage(
+    ch: Discord.Channel | undefined,
+    content: {
+      embed: {
+        title: string;
+        color: number;
+        thumbnail: { url: string };
+        fields: { name: string; value: string; inline?: boolean }[];
+        author: { name: string; url: string; iconUrl: string };
+        footer: { text: string };
+      };
+    }
+  ): void {
     if (!(ch instanceof Discord.TextChannel)) return;
     ch.send(content);
   }
