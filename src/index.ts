@@ -84,7 +84,7 @@ class EV1 {
         `<i> NIED地震速報が届きました ${data.report_id}-${data.report_num}`
       );
 
-      this.sendMessage(this.bot.channels.get('651780233711583233'), {
+      this.sendEmbedMessage(this.bot.channels.get('651780233711583233'), {
         embed: {
           title: `地震速報(高度利用) 第${data.report_num}報${
             data.is_final ? ' (最終報)' : ''
@@ -136,7 +136,7 @@ class EV1 {
     this.nhk.on('data', (data: Report) => {
       console.log(`<i> NHK地震情報が届きました ${data.id}`);
 
-      this.sendMessage(this.bot.channels.get('651780233711583233'), {
+      this.sendEmbedMessage(this.bot.channels.get('651780233711583233'), {
         embed: {
           title: `NHK地震情報 ${data.id}`,
           color: parseInt('0x34c3eb', 16),
@@ -180,7 +180,7 @@ class EV1 {
     });
   }
 
-  private sendMessage(
+  private sendEmbedMessage(
     ch: Discord.Channel | undefined,
     content: {
       embed: {
