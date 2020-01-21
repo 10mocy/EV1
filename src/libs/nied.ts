@@ -54,8 +54,8 @@ export class NIED extends EventEmitter {
   }
 
   private async _kmoni(): Promise<undefined> {
-    const dt = moment(new Date('2019/12/04 19:35:30'));
-    // const dt = moment();
+    // const dt = moment(new Date('2019/12/04 19:35:30'));
+    const dt = moment();
     dt.add(-2, 'seconds');
     const timestamp = dt.format('YYYYMMDDHHmmss');
 
